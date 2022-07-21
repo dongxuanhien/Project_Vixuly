@@ -1,0 +1,181 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        07/13/2022  16:41:07  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+C:\PHANMEM\KEILC4\C51\BIN\BL51.EXE hoho.obj TO hehehe RAMSIZE (256)
+
+
+INPUT MODULES INCLUDED:
+  hoho.obj (HOHO)
+
+
+LINK MAP OF MODULE:  hehehe (HOHO)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0109H     ABSOLUTE     
+
+
+
+SYMBOL TABLE OF MODULE:  hehehe (HOHO)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        HOHO
+  D:00F0H         SYMBOL        B
+  C:0046H         SYMBOL        CHECK
+  C:0065H         SYMBOL        CHECKRESET
+  C:00FCH         SYMBOL        CONTINUE
+  D:0080H         SYMBOL        DATA_7SEG
+  C:00D8H         SYMBOL        DELAY
+  C:00DDH         SYMBOL        DELAY_LAU
+  C:003FH         SYMBOL        DISPLAY
+  C:00A9H         SYMBOL        HERE
+  C:0080H         SYMBOL        HIHI0
+  C:00A5H         SYMBOL        HIHI1
+  C:00C8H         SYMBOL        HIHI2
+  D:00A8H         SYMBOL        IE
+  C:00EAH         SYMBOL        INTR
+  B:0088H.2       SYMBOL        IT1
+  C:00E0H         SYMBOL        LAP
+  B:00A0H.1       SYMBOL        LED2
+  B:00A0H.2       SYMBOL        LED3
+  B:00A0H.3       SYMBOL        LED4
+  C:00FFH         SYMBOL        MA7SEG
+  C:0055H         SYMBOL        MAIN
+  C:004BH         SYMBOL        MAIN0
+  D:0080H         SYMBOL        P0
+  D:0090H         SYMBOL        P1
+  D:00A0H         SYMBOL        P2
+  C:00B9H         SYMBOL        PRE
+  C:007AH         SYMBOL        SKIP
+  C:0023H         SYMBOL        START
+  B:0088H.7       SYMBOL        TF1
+  D:008DH         SYMBOL        TH1
+BL51 BANKED LINKER/LOCATER V6.22                                                      07/13/2022  16:41:07  PAGE 2
+
+
+  C:006BH         SYMBOL        TIMER1
+  D:008BH         SYMBOL        TL1
+  D:0089H         SYMBOL        TMOD
+  B:0088H.6       SYMBOL        TR1
+  C:001EH         SYMBOL        VE
+  C:0016H         SYMBOL        VE0
+  C:0000H         LINE#         9
+  C:0013H         LINE#         13
+  C:0016H         LINE#         15
+  C:001BH         LINE#         19
+  C:001EH         LINE#         21
+  C:0023H         LINE#         26
+  C:0026H         LINE#         27
+  C:0028H         LINE#         30
+  C:002BH         LINE#         31
+  C:002EH         LINE#         32
+  C:0031H         LINE#         33
+  C:0033H         LINE#         35
+  C:0036H         LINE#         36
+  C:0039H         LINE#         37
+  C:003CH         LINE#         39
+  C:003FH         LINE#         44
+  C:0041H         LINE#         45
+  C:0044H         LINE#         46
+  C:0046H         LINE#         48
+  C:0048H         LINE#         52
+  C:004BH         LINE#         55
+  C:004DH         LINE#         56
+  C:004FH         LINE#         57
+  C:0052H         LINE#         58
+  C:0055H         LINE#         62
+  C:0057H         LINE#         63
+  C:0059H         LINE#         64
+  C:005CH         LINE#         65
+  C:005FH         LINE#         66
+  C:0062H         LINE#         67
+  C:0065H         LINE#         71
+  C:0068H         LINE#         72
+  C:006BH         LINE#         77
+  C:006EH         LINE#         78
+  C:0071H         LINE#         79
+  C:0074H         LINE#         80
+  C:0077H         LINE#         81
+  C:007AH         LINE#         85
+  C:007DH         LINE#         86
+  C:0080H         LINE#         90
+  C:0083H         LINE#         91
+  C:0085H         LINE#         93
+  C:0086H         LINE#         94
+  C:0087H         LINE#         95
+  C:0089H         LINE#         96
+  C:008CH         LINE#         97
+  C:008EH         LINE#         98
+  C:0090H         LINE#         99
+  C:0091H         LINE#         100
+  C:0092H         LINE#         101
+  C:0094H         LINE#         102
+BL51 BANKED LINKER/LOCATER V6.22                                                      07/13/2022  16:41:07  PAGE 3
+
+
+  C:0097H         LINE#         103
+  C:0099H         LINE#         104
+  C:009BH         LINE#         105
+  C:009CH         LINE#         106
+  C:009DH         LINE#         107
+  C:009FH         LINE#         108
+  C:00A2H         LINE#         109
+  C:00A4H         LINE#         110
+  C:00A5H         LINE#         115
+  C:00A7H         LINE#         116
+  C:00A9H         LINE#         119
+  C:00ACH         LINE#         120
+  C:00AEH         LINE#         121
+  C:00B1H         LINE#         122
+  C:00B3H         LINE#         123
+  C:00B5H         LINE#         124
+  C:00B7H         LINE#         125
+  C:00B9H         LINE#         130
+  C:00BCH         LINE#         131
+  C:00BDH         LINE#         132
+  C:00BEH         LINE#         133
+  C:00C0H         LINE#         134
+  C:00C3H         LINE#         135
+  C:00C4H         LINE#         136
+  C:00C5H         LINE#         137
+  C:00C7H         LINE#         138
+  C:00C8H         LINE#         141
+  C:00CAH         LINE#         142
+  C:00CCH         LINE#         143
+  C:00CFH         LINE#         144
+  C:00D2H         LINE#         145
+  C:00D5H         LINE#         146
+  C:00D7H         LINE#         147
+  C:00D8H         LINE#         150
+  C:00DAH         LINE#         151
+  C:00DCH         LINE#         152
+  C:00DDH         LINE#         154
+  C:00E0H         LINE#         155
+  C:00E3H         LINE#         156
+  C:00E6H         LINE#         157
+  C:00E9H         LINE#         158
+  C:00EAH         LINE#         162
+  C:00ECH         LINE#         163
+  C:00EEH         LINE#         164
+  C:00F1H         LINE#         165
+  C:00F4H         LINE#         166
+  C:00F6H         LINE#         167
+  C:00F9H         LINE#         168
+  C:00FCH         LINE#         170
+  -------         ENDMOD        HOHO
+
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 00F1H BYTE (11%) *
+******************************************************************************
+
+Program Size: data=8.0 xdata=0 code=265
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,243 @@
+A51 MACRO ASSEMBLER  HOHO                                                                 07/13/2022 16:40:30 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.02
+OBJECT MODULE PLACED IN hoho.OBJ
+ASSEMBLER INVOKED BY: C:\Phanmem\KeilC4\C51\BIN\A51.EXE hoho.asm SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     
+  0080                 2     data_7seg equ p0
+  00A1                 3     led2 bit p2.1
+  00A2                 4     led3 bit p2.2
+  00A3                 5     led4 bit p2.3
+                       6     
+                       7     
+0000                   8     org 00h
+0000 020023            9     ljmp START                                ; bo qua bang vector ngat
+                      10     
+                      11     
+0013                  12     org 0013H
+0013 0200EA           13     ljmp INTR
+0016                  14     VE0:    
+0016 32               15     reti       
+                      16     
+                      17     
+001B                  18     org 001Bh
+001B 02006B           19     ljmp Timer1
+001E                  20     VE:
+001E 32               21     reti
+                      22     
+                      23     
+0023                  24     org 23h
+0023                  25     START:
+0023 75A88C           26     mov IE,#10001100B                                          ; Ngat ngoai tai INT1, suon xuon
+                             g    . va ngat Timer 1
+0026 D28A             27     setb IT1                 
+                      28     
+                      29     
+0028 758910           30     mov TMOD,#00010000B                  ; Che do Timer 1 16 bit(Mode1)
+002B 758D00           31     mov TH1,#000h                              ; Nap gia tri bat dau 16bit
+002E 758B00           32     mov TL1,#000h
+0031 D28E             33     setb TR1
+                      34     
+0033 75FE8C           35     mov 0FEh,#140                   ; Bien dem Timer
+0036 75FD64           36     mov 0FDh,#100                              ; FDh thanh ghi luu tru nguong
+0039 7590FF           37     MOV p1,#0FFH            ; chon p1 là cong dau vao
+                      38     
+003C 1200A5           39     lcall hihi1                                                     ; doc ADC
+                      40     
+                      41     
+003F                  42     DISPLAY:
+                      43     
+003F E5FC             44     mov a,0FCh
+0041 B5FD02           45     cjne a,0FDh,check                          ; Check
+0044 800F             46     sjmp main                                  ; p1=r2 nhay den main
+0046                  47     check:
+0046 500D             48     jnc main                                  ; C=0 p1>r2
+                      49                                       ; C=1 p1<r2            
+                      50     
+                      51     
+0048 BE001A           52     cjne r6,#0,checkReset
+                      53     
+004B                  54     main0:                                               
+004B C2A4             55     clr p2.4
+004D 7E00             56     mov r6,#0
+004F 120080           57     lcall hihi0                                              ; hien thi
+A51 MACRO ASSEMBLER  HOHO                                                                 07/13/2022 16:40:30 PAGE     2
+
+0052 02003F           58     ljmp DISPLAY
+                      59             
+                      60     
+0055                  61     main:                      ; hien so theo phuong phap quet Led
+0055 D2A4             62     setb p2.4
+0057 7E01             63     mov r6,#1       
+0059 120080           64     lcall hihi0                                                ; hien thi
+005C 1200DD           65     lcall delay_lau                                                                            
+                                  
+005F 1200D8           66     lcall delay       
+0062 02003F           67     ljmp DISPLAY   
+                      68     
+                      69     
+0065                  70     checkReset:
+0065 20A0ED           71     jb p2.0,main
+0068 02004B           72     ljmp main0
+                      73     
+                      74     
+006B                  75     Timer1:
+                      76         
+006B D5FE0C           77     djnz 0FEh,SKIP                                          ; Check 10s
+006E 75FE8C           78     mov 0FEh,#140                                           ; Nap lai bien dem
+0071 1200C8           79     lcall hihi2                                                     ; Nap lai timer
+0074 1200A5           80     lcall hihi1                                                     ; DOC adc
+0077 02001E           81     ljmp VE                 
+                      82     
+                      83        
+007A                  84     SKIP:
+007A 1200C8           85     lcall hihi2                                                      ; nap lai timer
+007D 02001E           86     ljmp VE
+                      87     
+                      88         
+0080                  89     hihi0:
+0080 9000FF           90     mov dptr,#ma7seg
+0083 D2A1             91     setb led2                                               ; Bat Led so 2
+                      92     
+0085 EB               93     mov a,r3
+0086 93               94     movc a,@a+dptr
+0087 F580             95     mov data_7seg,a
+0089 1200D8           96     lcall delay
+008C C2A1             97     clr led2                                                ; Tat Led so 2
+008E D2A2             98     setb led3                                               ; Bat Led so 3
+0090 EC               99     mov a,r4
+0091 93              100     movc a,@a+dptr
+0092 F580            101     mov data_7seg,a
+0094 1200D8          102     lcall delay
+0097 C2A2            103     clr led3                                                ; Tat Led so 3
+0099 D2A3            104     setb led4                                               ; Bat Led so 4
+009B ED              105     mov a,r5
+009C 93              106     movc a,@a+dptr
+009D F580            107     mov data_7seg,a
+009F 1200D8          108     lcall delay
+00A2 C2A3            109     clr led4                                                ; Tat Led so 4
+00A4 22              110     ret
+                     111             
+00A5                 112     hihi1:
+                     113        
+                     114        
+00A5 C2A6            115        clr p2.6             ; Dat WR=0
+00A7 D2A6            116        setb p2.6            ; Dat WR=1 de bat dau chuyen doi
+                     117       
+00A9                 118     HERE:
+00A9 20A7FD          119        jb p2.7,HERE         ; Cho ket thuc chuyen doi
+00AC C2A5            120        clr p2.5             ; Ket thuc chuyen doi, cho phep RD
+00AE 1200D8          121        lcall delay                  ; THEM  
+00B1 E590            122        MOV a,p1             ; Doc du lieu vao thanh ghi A
+A51 MACRO ASSEMBLER  HOHO                                                                 07/13/2022 16:40:30 PAGE     3
+
+00B3 F5FC            123        MOV 0FCh,a
+00B5 D2A5            124        setb p2.5            ; Dua RD=1 de cho lan doc sau
+00B7 D2A7            125        setb p2.7            ; THEM
+                     126     
+                     127     
+                     128     
+00B9                 129     PRE:
+00B9 75F064          130     mov b,#100
+00BC 84              131     div ab
+00BD FB              132     mov r3,a
+00BE E5F0            133     mov a,b
+00C0 75F00A          134     mov b,#10
+00C3 84              135     div ab
+00C4 FC              136     mov r4,a
+00C5 ADF0            137     mov r5,b
+00C7 22              138     ret
+                     139             
+00C8                 140     hihi2:
+00C8 C28F            141     clr TF1
+00CA C28E            142     clr TR1
+00CC 758910          143     mov TMOD,#00010000B  
+00CF 758D00          144     mov TH1,#000h                             
+00D2 758B00          145     mov TL1,#000h
+00D5 D28E            146     setb TR1
+00D7 22              147     ret             
+                     148         
+00D8                 149     delay:                                                  ; hàm delay nho
+00D8 7FFA            150     mov r7,#250
+00DA DFFE            151     djnz r7,$
+00DC 22              152     ret
+00DD                 153     delay_lau:                                              ; ham delay lau => Nhay led
+00DD 75F93C          154     MOV 0F9H,#60
+00E0 75F8FA          155     lap: MOV 0F8H,#250
+00E3 D5F8FD          156     djnz 0F8H,$
+00E6 D5F9F7          157     djnz 0F9H,lap
+00E9 22              158     ret     
+                     159     
+                     160         
+00EA                 161     INTR:
+00EA 05FD            162     inc 0FDh
+00EC E5FD            163     mov a,0FDh
+00EE 1200B9          164     lcall PRE
+00F1 120080          165     lcall hihi0
+00F4 AFFD            166     mov r7,0FDh                                       ; Check neu bang 150 thi reset nguong ve 
+                             1
+00F6 BF9603          167     cjne r7,#150,CONTINUE
+00F9 75FD01          168     mov 0FDh,#1
+00FC                 169     CONTINUE:
+00FC 020016          170     ljmp VE0                 
+00FF                 171     ma7seg:
+00FF C0F9A4B0        172     db 0xc0,0xf9,0xa4,0xb0,0x99,0x92,0x82,0xf8,0x80,0x90
+0103 999282F8                
+0107 8090                    
+                     173     end
+                             
+                                                                                                              
+A51 MACRO ASSEMBLER  HOHO                                                                 07/13/2022 16:40:30 PAGE     4
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+B. . . . . . . . .  D ADDR   00F0H   A   
+CHECK. . . . . . .  C ADDR   0046H   A   
+CHECKRESET . . . .  C ADDR   0065H   A   
+CONTINUE . . . . .  C ADDR   00FCH   A   
+DATA_7SEG. . . . .  D ADDR   0080H   A   
+DELAY. . . . . . .  C ADDR   00D8H   A   
+DELAY_LAU. . . . .  C ADDR   00DDH   A   
+DISPLAY. . . . . .  C ADDR   003FH   A   
+HERE . . . . . . .  C ADDR   00A9H   A   
+HIHI0. . . . . . .  C ADDR   0080H   A   
+HIHI1. . . . . . .  C ADDR   00A5H   A   
+HIHI2. . . . . . .  C ADDR   00C8H   A   
+IE . . . . . . . .  D ADDR   00A8H   A   
+INTR . . . . . . .  C ADDR   00EAH   A   
+IT1. . . . . . . .  B ADDR   0088H.2 A   
+LAP. . . . . . . .  C ADDR   00E0H   A   
+LED2 . . . . . . .  B ADDR   00A0H.1 A   
+LED3 . . . . . . .  B ADDR   00A0H.2 A   
+LED4 . . . . . . .  B ADDR   00A0H.3 A   
+MA7SEG . . . . . .  C ADDR   00FFH   A   
+MAIN . . . . . . .  C ADDR   0055H   A   
+MAIN0. . . . . . .  C ADDR   004BH   A   
+P0 . . . . . . . .  D ADDR   0080H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+P2 . . . . . . . .  D ADDR   00A0H   A   
+PRE. . . . . . . .  C ADDR   00B9H   A   
+SKIP . . . . . . .  C ADDR   007AH   A   
+START. . . . . . .  C ADDR   0023H   A   
+TF1. . . . . . . .  B ADDR   0088H.7 A   
+TH1. . . . . . . .  D ADDR   008DH   A   
+TIMER1 . . . . . .  C ADDR   006BH   A   
+TL1. . . . . . . .  D ADDR   008BH   A   
+TMOD . . . . . . .  D ADDR   0089H   A   
+TR1. . . . . . . .  B ADDR   0088H.6 A   
+VE . . . . . . . .  C ADDR   001EH   A   
+VE0. . . . . . . .  C ADDR   0016H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)
